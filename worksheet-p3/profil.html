@@ -14,35 +14,70 @@
 -->
 <html lang="id">
 <head>
-<title>TODO: DAFTAR CATATAN FILM </title>
-<!-- TODO B.1: tambahkan dua baris meta di bawah ini:
+<title> DAFTAR CATATAN FILM </title>
      <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 </head>
 <body>
 
   <header>
-    <h1>TODO: DAFTAR CATATAN FILM </h1>
-    <nav>
-      <ul>
-        <li><a href="bagian-1">Section 1</a></li>
-        <li><a href="bagian-2">Section 2</a></li>
-        <li><a href="bagian-3">Section 3</a></li>
-      </ul>
-    </nav>
-  </header>
+        <h1>Catatan Film Saya</h1>
+        <nav aria-label="Navigasi utama">
+            <ul>
+                <li><a href="#daftar-film">Daftar Film</a></li>
+                <li><a href="#tambah-film">Tambah Film</a></li>
+                <li><a href="#target-tontonan">Target Tontonan</a></li>
+            </ul>
+        </nav>
+    </header>
 
-     <main>
-     <section id="bagian-1">
-     <h2>Judul bagian pertama</h2>
-     <!-- tabel anda nanti disini (lembar d) -->
-     </section>
+    <main>
+        <section id="daftar-film">
+            <h2>Daftar Film</h2>
+            
+            <figure>
+                <img src="poster-film.webp" 
+                     alt="Poster film Interstellar menampilkan seorang astronaut berdiri di lanskap planet es" 
+                     width="640" 
+                     height="360" 
+                     loading="lazy">
+                <figcaption>Poster salah satu film favorit yang sudah selesai ditonton.</figcaption>
+            </figure>
 
-    <section id="bagian-2">
-     <h2>Judul bagian kedua</h2>
-     <!-- form anda nanti disini (lembar e) -->
-    </section>
+            <table>
+                <caption>Daftar Film yang Pernah Saya Tonton</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Judul Film</th>
+                        <th scope="col">Sutradara</th>
+                        <th scope="col">Tahun Rilis</th>
+                        <th scope="col">Rating Saya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Interstellar</th>
+                        <td>Christopher Nolan</td>
+                        <td>2014</td>
+                        <td>5/5</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Laskar Pelangi</th>
+                        <td>Riri Riza</td>
+                        <td>2008</td>
+                        <td>4.5/5</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Spirited Away</th>
+                        <td>Hayao Miyazaki</td>
+                        <td>2001</td>
+                        <td>5/5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
+    
     <!-- TODO E.1: di dalam section kedua, buat form Anda.
          Wajib ada: minimal 3 kolom, setiap kolom punya <label for> yang
          cocok dengan id input-nya, dan satu atribut validasi. -->
