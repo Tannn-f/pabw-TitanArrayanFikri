@@ -16,3 +16,4 @@ Topik halaman saya: Daftar film yang pernah saya tonton
 - Gambar: poster-film.webp
 
 # Catatan Penggunaan AI
+Saya menggunakan AI pada bagian pembuatan form dan tabel data, sisanya saya tidak menggunakan AI
