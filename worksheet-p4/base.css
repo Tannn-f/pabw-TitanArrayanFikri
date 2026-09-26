@@ -7,23 +7,21 @@
 * {
   margin: 0;
 }
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
 
-* {
-  margin: 0;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 html {
-  font-size: 100%; /* ikuti pengaturan pengguna, jangan dipatok */
+  font-size: 100%;
 }
+
 body {
   font-family: system-ui, "Segoe UI", Roboto, sans-serif;
   font-size: var(--text-md);
-  line-height: 1.6; /* 1.5-1.7 nyaman untuk teks isi */
+  line-height: 1.6;
   color: var(--color-fg);
   background: var(--color-bg);
   padding: var(--space-4);
@@ -39,9 +37,9 @@ h2 {
 }
 h3 {
   font-size: var(--text-md);
+  line-height: 1.25;
 }
 
-/* Batasi panjang baris supaya mata mudah berpindah baris */
 main p {
   max-width: 60ch;
 }
