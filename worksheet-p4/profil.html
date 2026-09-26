@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
   KERANGKA AWAL — Halaman Profil Saya
   PABW 2026/2027 · Pertemuan 3
@@ -13,105 +13,143 @@
   komentar itu adalah daftar periksa Anda sendiri.
 -->
 <html lang="id">
-<head>
-<title> DAFTAR CATATAN FILM </title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-</head>
-<body>
-
-  <header>
-        <h1>Catatan Film Saya</h1>
-        <nav aria-label="Navigasi utama">
-            <ul>
-                <li><a href="#daftar-film">Daftar Film</a></li>
-                <li><a href="#tambah-film">Tambah Film</a></li>
-                <li><a href="#target-tontonan">Target Tontonan</a></li>
-            </ul>
-        </nav>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAFTAR CATATAN FILM</title>
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="komponen.css" />
+    <link rel="stylesheet" href="tema.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Catatan Film Saya</h1>
+      <nav aria-label="Navigasi utama">
+        <ul>
+          <li><a href="#daftar-film">Daftar Film</a></li>
+          <li><a href="#tambah-film">Tambah Film</a></li>
+          <li><a href="#target-tontonan">Target Tontonan</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <section id="daftar-film">
-            <h2>Daftar Film</h2>
-            
-            <figure>
-                <img src="poster-film.webp" 
-                    alt="Poster film Interstellar menampilkan seorang astronaut berdiri di lanskap planet es" 
-                    width="640" 
-                    height="360" 
-                    loading="lazy">
-                <figcaption>Poster salah satu film favorit yang sudah selesai ditonton.</figcaption>
-            </figure>
+      <section id="daftar-film">
+        <h2>Daftar Film</h2>
 
-            <table>
-                <caption>Daftar Film yang Pernah Saya Tonton</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Judul Film</th>
-                        <th scope="col">Sutradara</th>
-                        <th scope="col">Tahun Rilis</th>
-                        <th scope="col">Rating Saya</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Interstellar</th>
-                        <td>Christopher Nolan</td>
-                        <td>2014</td>
-                        <td>5/5</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Laskar Pelangi</th>
-                        <td>Riri Riza</td>
-                        <td>2008</td>
-                        <td>4.5/5</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Spirited Away</th>
-                        <td>Hayao Miyazaki</td>
-                        <td>2001</td>
-                        <td>5/5</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        <figure>
+          <img
+            src="poster-film.webp"
+            alt="Poster film Interstellar menampilkan seorang astronaut berdiri di lanskap planet es"
+            width="640"
+            height="360"
+            loading="lazy"
+          />
+          <figcaption>
+            Poster salah satu film favorit yang sudah selesai ditonton.
+          </figcaption>
+        </figure>
 
-        <section id="tambah-film">
-            <h2>Tambah Film</h2>
-            <form action="/simpan" method="post">
-                <p>
-                    <label for="judul-film">Judul Film</label>
-                    <input type="text" id="judul-film" name="judul-film" required>
-                </p>
-                <p>
-                    <label for="tahun-rilis">Tahun Rilis</label>
-                    <input type="number" id="tahun-rilis" name="tahun-rilis" min="1888" max="2026" required>
-                </p>
-                <p>
-                    <label for="rating-film">Rating Saya (1-5)</label>
-                    <input type="number" id="rating-film" name="rating-film" min="1" max="5" step="0.1" required>
-                </p>
-                <button type="submit">Simpan</button>
-            </form>
-        </section>
+        <table>
+          <caption>
+            Daftar Film yang Pernah Saya Tonton
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Judul Film</th>
+              <th scope="col">Sutradara</th>
+              <th scope="col">Tahun Rilis</th>
+              <th scope="col">Rating Saya</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Interstellar</th>
+              <td>Christopher Nolan</td>
+              <td>2014</td>
+              <td>5/5</td>
+            </tr>
+            <tr>
+              <th scope="row">Laskar Pelangi</th>
+              <td>Riri Riza</td>
+              <td>2008</td>
+              <td>4.5/5</td>
+            </tr>
+            <tr>
+              <th scope="row">Spirited Away</th>
+              <td>Hayao Miyazaki</td>
+              <td>2001</td>
+              <td>5/5</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-        <section id="target-tontonan">
-            <h2>Target Tontonan</h2>
-            <p>Daftar film yang berencana saya tonton dalam waktu dekat beserta prioritasnya:</p>
-            <ul>
-                <li><strong>Oppenheimer</strong> — Genre: Biografi / Drama — Prioritas: Tinggi</li>
-                <li><strong>Dune: Part Two</strong> — Genre: Sci-Fi / Petualangan — Prioritas: Tinggi</li>
-                <li><strong>The Dark Knight</strong> — Genre: Aksi / Kejahatan — Prioritas: Sedang</li>
-                <li><strong>Grave of the Fireflies</strong> — Genre: Animasi / Drama — Prioritas: Sedang</li>
-            </ul>
-        </section>
+      <section id="tambah-film">
+        <h2>Tambah Film</h2>
+        <form action="/simpan" method="post">
+          <p>
+            <label for="judul-film">Judul Film</label>
+            <input type="text" id="judul-film" name="judul-film" required />
+          </p>
+          <p>
+            <label for="tahun-rilis">Tahun Rilis</label>
+            <input
+              type="number"
+              id="tahun-rilis"
+              name="tahun-rilis"
+              min="1888"
+              max="2026"
+              required
+            />
+          </p>
+          <p>
+            <label for="rating-film">Rating Saya (1-5)</label>
+            <input
+              type="number"
+              id="rating-film"
+              name="rating-film"
+              min="1"
+              max="5"
+              step="0.1"
+              required
+            />
+          </p>
+          <button type="submit">Simpan</button>
+        </form>
+      </section>
+
+      <section id="target-tontonan">
+        <h2>Target Tontonan</h2>
+        <p>
+          Daftar film yang berencana saya tonton dalam waktu dekat beserta
+          prioritasnya:
+        </p>
+        <ul>
+          <li>
+            <strong>Oppenheimer</strong> — Genre: Biografi / Drama — Prioritas:
+            Tinggi
+          </li>
+          <li>
+            <strong>Dune: Part Two</strong> — Genre: Sci-Fi / Petualangan —
+            Prioritas: Tinggi
+          </li>
+          <li>
+            <strong>The Dark Knight</strong> — Genre: Aksi / Kejahatan —
+            Prioritas: Sedang
+          </li>
+          <li>
+            <strong>Grave of the Fireflies</strong> — Genre: Animasi / Drama —
+            Prioritas: Sedang
+          </li>
+        </ul>
+      </section>
     </main>
 
-
-  <footer>
-     <p>Titan Arrayan Fikri, 25523234, 2026</p>
-  </footer>
-
-</body>
+    <footer>
+      <p>Titan Arrayan Fikri, 25523234, 2026</p>
+    </footer>
+  </body>
 </html>

@@ -23,8 +23,6 @@ Saya menggunakan AI pada bagian pembuatan form dan tabel data, sisanya saya tida
   layout.css, komponen.css, tema.css - Warna utama: #1D3A8C (biru), dipilih karena ...
 
 ### Token yang saya tetapkan
-| Token | Nilai | Untuk apa |
-|---|---|---|
 --color-bg: #F8FAFC (Latar Halaman)
 
 --color-fg: #0F172A (Teks Utama - Kontras ke #F8FAFC adalah ~15.8:1, Lolos AA & AAA)
