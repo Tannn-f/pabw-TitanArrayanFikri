@@ -60,3 +60,27 @@ Saya menggunakan AI pada bagian pembuatan form dan tabel data, sisanya saya tida
 --text-xl : 1.5rem (judul bagian)
 
 --text-3xl : 2.25rem (judul halaman)
+
+## Pertemuan ke-4 - Flexbox dan Grid
+## A.1 Kerangka Halaman
+| Bagian Halaman | Peran | Nilai yang Saya Pakai |
+| :--- | :--- | :--- |
+| **Baris Pertama** | Kepala halaman: logo, judul, menu | `auto` · tinggi mengikuti isi |
+| **Baris Kedua** | Isi: sidebar dan konten | `1fr` · mengisi sisa tinggi |
+| **Baris Ketiga** | Kaki halaman | `auto` · tinggi mengikuti isi |
+| **Kolom Isi** | Sidebar tetap, konten lentur | `16rem 1fr` · sidebar tetap |
+
+## A.2 Sumbu dan Arah
+| Komponen | Arah | Sumbu Utama | Sumbu Silang |
+| :--- | :--- | :--- | :--- |
+| **Navbar** | baris | horizontal | vertikal |
+| **Baris tombol pada kartu** | baris | horizontal | vertikal |
+| **Daftar menu samping** | kolom | vertikal | horizontal |
+
+## A.3 Kapan Flex, Kapan Grid
+| Bagian | Pilihan Saya | Alasan Satu Baris |
+| :--- | :--- | :--- |
+| **Kepala halaman** | `flex` | Menyusun elemen logo dan menu navigasi secara 1 dimensi dalam satu baris horizontal. |
+| **Isi dua kolom** | `grid` | Membagi struktur 2 dimensi antara kolom sidebar (ukuran tetap) dan konten utama (lentur). |
+| **Galeri kartu** | `grid` | Menghasilkan tata letak multi-kolom yang responsif secara otomatis tanpa bantuan media query. |
+| **Isi di dalam satu kartu** | `flex` | Memosisikan komponen internal kartu (teks, tombol, ikon) secara linear 1D dengan alur fleksibel. |
