@@ -100,6 +100,37 @@ python -m http.server 8000
 lalu buka `http://localhost:8000/profil.html` (atau klik kanan `profil.html` →
 Open with Live Server).
 
+Karena skrip memakai `type="module"`, variabel di `app.js` tidak bisa dipanggil
+langsung dari Console (hasilnya `ReferenceError: profil is not defined`). Untuk
+memeriksanya: DevTools → Sources → `app.js`, pasang breakpoint di baris terakhir,
+muat ulang, lalu ketik nama variabelnya di Console.
+
+### B.4 Data profil saya
+
+| Data | Nama variabel yang saya pakai | Isi |
+| :--- | :--- | :--- |
+| Nama lengkap | `profil.nama` | `"Titan Arrayan Fikri"` |
+| Kalimat peran | `profil.peran` | `"mahasiswa yang mencatat dan menilai setiap film yang sudah ditonton"` |
+| Daftar keahlian (minimal tiga) — di halaman saya berupa genre favorit | `profil.genreFavorit` | `["Sci-Fi", "Animasi", "Drama"]` |
+| Satu nilai angka yang dipakai nanti | `ratingMaksimal` | `5` (angka, bukan `"5"`) — dipakai `formatRating` untuk menulis `4.5/5` |
+| Judul halaman (dipakai di dua tempat) | `judulHalaman` | `"Catatan Film Saya"` — mengisi `<title>` dan `<h1>` |
+| Daftar proyek — di halaman saya berupa daftar film | `daftarFilm` | array berisi 7 object `{ judul, sutradara, tahun, genre, sudahDitonton, rating, prioritas }` |
+
+Dua fungsi murni wajib: `buatPerkenalan({ nama, peran }, jumlahFilm = 0)` dan
+`formatGenre(daftar)`. Fungsi murni tambahan: `formatRating`, `hitungRataRating`
+(memakai `reduce`), `buatBarisFilm`, `buatItemTarget`, `buatKeteranganPoster`.
+`let` dipakai di `buatPerkenalan` karena kalimatnya ditambah bila `jumlahFilm > 0`.
+
+### D.4 Pemeriksaan data saya
+
+| Yang diperiksa | Hasil yang benar | Hasil saya |
+| :--- | :--- | :--- |
+| `console.table` | Seluruh isi tampil sebagai tabel, jumlah barisnya sama dengan isi array | `console.table(daftarFilm)` tampil 7 baris (indeks 0–6), sama dengan 7 object di `app.js`; `console.table(profil.genreFavorit)` tampil 3 baris |
+| `filter` pada satu label | Hanya isi yang cocok yang tersisa, dan jumlahnya masuk akal | `filter` pada `sudahDitonton` → 3 film (Interstellar, Laskar Pelangi, Spirited Away); kebalikannya → 4 target tontonan; 3 + 4 = 7 |
+| `find` satu isi | Yang muncul satu object; kalau tidak ada, hasilnya `undefined` | `find` judul `"Interstellar"` → satu object (dipakai untuk keterangan poster); `find` judul `"Inception"` → `undefined`, dan `filmTidakAda?.sutradara` tidak melempar galat |
+| `map` pada `daftarFilm` | Panjang array hasil sama dengan array asal | `judulFilm.length === daftarFilm.length` → `true` (7 dan 7) |
+| Data asli setelah `sort` | Urutan `daftarFilm` tidak berubah karena memakai salinan | `[...filmDitonton].sort(...)` → Interstellar, Spirited Away, Laskar Pelangi; `judulFilm` yang dibuat sesudah sort masih berurutan asli (Interstellar, Laskar Pelangi, Spirited Away, …) |
+
 ### E.5 Galat yang saya temui
 
 | Pesan galat (apa adanya) | Baris | Sebabnya | Yang saya ubah |
@@ -118,3 +149,29 @@ Tangkapan layar Console (Chrome):
 Catatan: Chrome masih menampilkan **1 issue** berwarna biru (bukan galat):
 gambar poster memakai `loading="lazy"` padahal tampil di layar awal. Itu saran
 kinerja dari HTML Pertemuan 3, bukan kesalahan JavaScript.
+
+### F.1 Periksa satu per satu
+
+- [x] **Berkas** — `profil.html` dan folder `js/` ada di repositori, terbuka tanpa galat di Console
+- [x] **Skrip** — `<script type="module" src="js/app.js"></script>` ada satu kali, tepat sebelum `</body>`
+- [x] **Data** — identitas (`profil`), genre favorit (`profil.genreFavorit`), dan daftar film (`daftarFilm`) tersimpan sebagai `const` di `app.js`, tidak ditulis di HTML
+- [x] **Fungsi** — `buatPerkenalan` dan `formatGenre` murni, masing-masing satu pekerjaan, memakai `return`
+- [x] **Array methods** — `filter`, `map`, `find` (dan `reduce`) dipakai pada data yang benar; `sort` hanya pada salinan `[...filmDitonton]`
+- [x] **Console** — tidak ada pesan merah; tiga tangkapan layar ada di `worksheet-p8/tangkapan-layar/`
+- [x] **Deklarasi AI** — lihat bagian di bawah
+- [x] **Git** — satu commit per lembar (A–F) dengan pesan yang menjelaskan isinya
+
+### Catatan Penggunaan AI (Pertemuan 8)
+
+Dibantu AI (Claude Code):
+
+- Kode `js/app.js` (data, fungsi murni, array methods, bagian yang mengisi halaman) dan perubahan
+  `profil.html` (id pada elemen, baris `<script>`, ikon kosong) ditulis dengan bantuan AI, mengikuti
+  perintah worksheet lembar A–F.
+- Pemicuan tiga kasus galat E.4, pencatatan pesannya di tabel E.5, tangkapan layar Console, serta
+  isi tabel B.4 dan D.4 di README ini juga dibantu AI.
+
+Dikerjakan sendiri:
+
+- Topik halaman dan isi datanya (daftar film, rating, dan target tontonan) berasal dari halaman saya
+  sendiri di Pertemuan 3–6.
