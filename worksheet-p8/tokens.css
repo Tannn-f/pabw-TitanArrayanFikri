@@ -1,4 +1,3 @@
-/* LAPIS 1 – primitif: nilai mentah, tidak menyebut peran apa pun */
 :root {
   --blue-700: #1D3A8C;
   --blue-500: #2563EB;
@@ -20,7 +19,6 @@
   --text-3xl: 2.25rem;
 }
 
-/* LAPIS 2 – semantik: peran. Isinya mengacu ke lapis 1. */
 :root {
   --color-bg:      var(--gray-50);
   --color-fg:      var(--gray-900);

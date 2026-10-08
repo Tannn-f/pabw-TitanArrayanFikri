@@ -1,4 +1,3 @@
-// ===== Data halaman: ditulis sekali di sini, bukan di HTML =====
 const judulHalaman = "Catatan Film Saya";
 const ratingMaksimal = 5;
 
@@ -75,7 +74,6 @@ const daftarFilm = [
   },
 ];
 
-// ===== Fungsi murni: hasilnya hanya bergantung pada argumen =====
 const buatPerkenalan = ({ nama, peran }, jumlahFilm = 0) => {
   let kalimat = `${nama} — ${peran}.`;
   if (jumlahFilm > 0) {
@@ -112,7 +110,6 @@ const buatItemTarget = (film) => `
 const buatKeteranganPoster = (film, maks) =>
   `Poster ${film.judul} (${film.tahun}) karya ${film.sutradara} — film yang saya beri nilai ${formatRating(film.rating, maks)}.`;
 
-// ===== Mengolah data dengan array methods =====
 const filmDitonton = daftarFilm.filter((film) => film.sudahDitonton);
 const targetTontonan = daftarFilm.filter((film) => !film.sudahDitonton);
 const filmUrutRating = [...filmDitonton].sort((a, b) => b.rating - a.rating);
@@ -120,7 +117,6 @@ const filmPoster = daftarFilm.find((film) => film.judul === "Interstellar");
 const judulFilm = daftarFilm.map((film) => film.judul);
 const rataRating = hitungRataRating(filmDitonton);
 
-// ===== Menampilkan data ke halaman =====
 const elemenJudul = document.querySelector("#judul-halaman");
 const elemenPerkenalan = document.querySelector("#perkenalan");
 const elemenGenre = document.querySelector("#genre-favorit");
@@ -140,7 +136,6 @@ elemenIsiTabel.innerHTML = filmUrutRating.map((film) => buatBarisFilm(film, rati
 elemenDaftarTarget.innerHTML = targetTontonan.map((film) => buatItemTarget(film)).join("");
 elemenKaki.textContent = `${profil.nama}, ${profil.nim}, ${new Date().getFullYear()}`;
 
-// ===== Pemeriksaan di Console =====
 console.log(buatPerkenalan(profil, filmDitonton.length));
 console.log(formatGenre(profil.genreFavorit));
 
