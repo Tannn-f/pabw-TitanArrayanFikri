@@ -85,3 +85,5 @@ Saya menggunakan AI pada bagian pembuatan form dan tabel data, sisanya saya tida
 | **Galeri kartu** | `grid` | Menghasilkan tata letak multi-kolom yang responsif secara otomatis tanpa bantuan media query. |
 | **Isi di dalam satu kartu** | `flex` | Memosisikan komponen internal kartu (teks, tombol, ikon) secara linear 1D dengan alur fleksibel. |
 
+### Catatan Penggunaan AI (Pertemuan 8)
+- Kode `js/app.js`  array method

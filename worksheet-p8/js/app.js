@@ -99,12 +99,20 @@ const buatBarisFilm = (film, maks) => `
     <th scope="row">${film.judul}</th>
     <td>${film.sutradara}</td>
     <td>${film.tahun}</td>
-    <td>${formatRating(film.rating, maks)}</td>
+    <td>
+      <span class="rating">
+        <span class="bintang" style="--persen: ${(film.rating / maks) * 100}%" aria-hidden="true">★★★★★</span>
+        ${formatRating(film.rating, maks)}
+      </span>
+    </td>
   </tr>`;
 
 const buatItemTarget = (film) => `
-  <li>
-    <strong>${film.judul}</strong> — Genre: ${film.genre} — Prioritas: ${film.prioritas ?? "Belum ditentukan"}
+  <li class="kartu-target" data-prioritas="${film.prioritas ?? ""}">
+    <strong>${film.judul}</strong>
+    <span class="meta">${film.genre}</span>
+    <span class="meta">${film.sutradara} · ${film.tahun}</span>
+    <span class="lencana">Prioritas: ${film.prioritas ?? "Belum ditentukan"}</span>
   </li>`;
 
 const buatKeteranganPoster = (film, maks) =>
