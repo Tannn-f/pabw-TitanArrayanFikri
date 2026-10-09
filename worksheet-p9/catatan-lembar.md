@@ -55,3 +55,29 @@ Array.from(document.querySelectorAll("#filter button")).map((t) => t.textContent
 untuk "panggil setiap variabel elemen" `dom.js` sementara mencetaknya sekali:
 `console.log({ wadah, kosong, barisFilter, ... })` — tidak ada yang `null`, dan
 baris kedua mencetak `Data dari app.js: 7 film, rating maksimal 5`.
+
+## Lembar B — Menyusun elemen dari data
+
+`buatKartu(film)` membuat satu `<li class="kartu kartu-film">` berisi `<h3>`
+judul, dua `<p class="meta">` (sutradara · tahun, lalu genre), dan
+`<span class="lencana">` (rating bila sudah ditonton, prioritas bila masih
+target). Semua isinya memakai `textContent`. `render(daftar)` mengosongkan
+wadah di baris pertama (`wadah.textContent = ""`), lalu
+`wadah.append(...daftar.map((film) => buatKartu(film)))`: `map` mengubah tujuh
+object menjadi tujuh `<li>`, dan `append` memasukkan semuanya dalam satu
+panggilan.
+
+Karena `daftarFilm` hidup di dalam modul, di Console saya mengambilnya lewat
+`(await import("./js/app.js")).daftarFilm` — modul yang sama dengan yang dipakai
+halaman, bukan salinan.
+
+### B.3 Bandingkan hasil kerja Anda
+
+| Yang diperiksa | Hasil yang benar | Hasil yang saya dapat |
+| --- | --- | --- |
+| Jumlah kartu di halaman | Sama dengan panjang `daftarProyek` | `document.querySelectorAll("#daftar > li").length` → 7, `daftarFilm.length` → 7 |
+| Satu kartu paling atas | Judulnya sama dengan data pertama | `Interstellar` = `daftarFilm[0].judul`; urutan ketujuh kartu sama dengan urutan data |
+| Teks di dalam kartu | Tampil sebagai teks, bukan tag yang terurai | `<h3>` hanya berisi satu simpul teks (`#text`); tidak ada `<b>`, `<i>`, `<script>`, atau `<img>` yang terbentuk dari isi data. Kartu pertama: `<li class="kartu kartu-film"><h3>Interstellar</h3><p class="meta">Christopher Nolan · 2014</p><p class="meta">Sci-Fi / Drama</p><span class="lencana">Rating 5/5</span></li>` |
+
+Cara memastikan: halaman dimuat ulang dua kali tanpa menyentuh Console →
+tetap 7 kartu, dan Console tidak menampilkan pesan merah.
