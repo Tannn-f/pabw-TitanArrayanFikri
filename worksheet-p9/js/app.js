@@ -1,5 +1,5 @@
 const judulHalaman = "Catatan Film Saya";
-const ratingMaksimal = 5;
+export const ratingMaksimal = 5;
 
 const profil = {
   nama: "Titan Arrayan Fikri",
@@ -8,7 +8,7 @@ const profil = {
   genreFavorit: ["Sci-Fi", "Animasi", "Drama"],
 };
 
-const daftarFilm = [
+export const daftarFilm = [
   {
     judul: "Interstellar",
     sutradara: "Christopher Nolan",
