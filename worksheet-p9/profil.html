@@ -100,9 +100,10 @@
               id="judul-film"
               name="judul-film"
               placeholder="Contoh: Inception"
+              aria-describedby="galat-judul"
               required
             />
-            <p class="pesan-galat">Judul film wajib diisi.</p>
+            <p id="galat-judul" class="pesan-galat"></p>
           </div>
           <div class="form-kolom">
             <label for="tahun-rilis">Tahun Rilis</label>
@@ -113,9 +114,10 @@
               min="1888"
               max="2026"
               placeholder="2010"
+              aria-describedby="galat-tahun"
               required
             />
-            <p class="pesan-galat">Isi tahun antara 1888 dan 2026.</p>
+            <p id="galat-tahun" class="pesan-galat"></p>
           </div>
           <div class="form-kolom">
             <label for="rating-film">Rating Saya (1-5)</label>
@@ -127,11 +129,13 @@
               max="5"
               step="0.1"
               placeholder="4.5"
+              aria-describedby="galat-rating"
               required
             />
-            <p class="pesan-galat">Isi rating dari 1 sampai 5.</p>
+            <p id="galat-rating" class="pesan-galat"></p>
           </div>
           <button type="submit">Simpan</button>
+          <p id="pesan-form" class="pesan-form" role="status"></p>
         </form>
       </section>
 

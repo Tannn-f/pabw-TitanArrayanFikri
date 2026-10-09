@@ -117,3 +117,45 @@ Pemeriksaan tambahan:
   `<b>Interstellar</b>` apa adanya, `document.querySelectorAll("#daftar b").length`
   → 0, dan `innerHTML` judulnya `&lt;b&gt;Interstellar&lt;/b&gt;`. Muat ulang
   mengembalikan data asli.
+
+## Lembar D — Pola render dan validasi form
+
+`render(daftar)` sekarang memegang ketiga pekerjaannya sendiri, berurutan:
+`wadah.textContent = ""` → bila `daftar.length === 0`, `kosong.hidden = false`
+lalu `return` → selain itu `kosong.hidden = true` dan kartu diisi ulang. Baris
+`kosong.hidden = ...` yang di lembar C masih ada di pendengar klik sudah
+dipindah ke dalam `render`. Pendengar tetap dipasang di luar `render`.
+
+Form Tambah Film (sejak P3) di `dom.js`:
+
+- `formFilm.noValidate = true` — tanpa ini peramban memeriksa `required` lebih
+  dulu. Sudah dicoba: dengan `noValidate = false`, klik Simpan pada form kosong
+  hanya memicu event `invalid` di ketiga kolom, dan event `submit` tidak pernah
+  sampai ke `dom.js`, jadi pesan per kolom tidak muncul.
+- `cariGalat(kolom)` membaca `kolom.value.trim()` dan mengembalikan pesan yang
+  menyebut cara memperbaikinya, atau `""` bila isinya layak.
+- `periksaKolom(kolom)` menulis pesan itu ke `.pesan-galat` milik kolomnya
+  (dicari dengan `kolom.closest(".form-kolom")`) dan memasang atau melepas
+  `aria-invalid="true"`. Garis merah dan tampil-tidaknya pesan diatur CSS dari
+  `aria-invalid` (menggantikan `:user-invalid` dari P3), jadi tampilan dan
+  pemeriksaan berasal dari satu sumber. Setiap kolom juga punya
+  `aria-describedby` ke pesannya.
+- Satu pendengar `input` di form memeriksa kolom yang sedang diketik, lalu
+  `tombolSimpan.disabled = !sah`.
+- Pendengar `submit`: `event.preventDefault()` di baris pertama, periksa
+  ketiga kolom, fokus ke kolom salah yang pertama. Bila semua layak,
+  `#pesan-form` (`role="status"`) menampilkan ringkasan lewat `textContent`, lalu
+  form dikosongkan.
+
+### D.3 Periksa hasil kerja Anda
+
+| Yang diperiksa | Hasil yang benar | Hasil yang saya dapat |
+| --- | --- | --- |
+| Kirim form kosong | Halaman tidak dimuat ulang; pesan galat muncul | Tidak ada navigasi (penanda yang dipasang di `window` sebelum klik masih ada). Ketiga kolom `aria-invalid="true"` dan pesannya muncul di bawah masing-masing; fokus pindah ke Judul Film; tombol Simpan nonaktif |
+| Perbaiki satu kolom | Pesannya hilang begitu isinya layak | Judul diketik `Inception` → pesan judul langsung hilang; pesan tahun dan rating tetap tampil |
+| Isi hanya spasi | Masih dinyatakan tidak sah | Judul berisi tiga spasi → tetap `aria-invalid="true"`, pesan "Tulis judul filmnya, misalnya Inception. Spasi saja tidak dihitung." muncul (`"   ".trim()` → `""`) |
+| Tombol kirim | Menunggu sampai seluruh kolom layak | Tahun 1500 → nonaktif; tahun 2010 tetapi rating kosong → nonaktif; rating 7 → nonaktif; rating 4.5 → aktif. Enter di kolom rating → "Siap dicatat: Inception (2010), rating 4.5/5.", form kosong lagi, halaman tidak dimuat ulang |
+
+Pemeriksaan tambahan: judul diisi `<img src=x onerror="alert(1)">` lalu
+dikirim → pesan menampilkan tulisan itu apa adanya, `#pesan-form img` → 0
+elemen, tidak ada alert.

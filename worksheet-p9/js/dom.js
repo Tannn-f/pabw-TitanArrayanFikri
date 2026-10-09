@@ -8,6 +8,7 @@ const inputJudul = document.querySelector("#judul-film");
 const inputTahun = document.querySelector("#tahun-rilis");
 const inputRating = document.querySelector("#rating-film");
 const tombolSimpan = document.querySelector("#form-film button[type='submit']");
+const pesanForm = document.querySelector("#pesan-form");
 
 // Satu film menjadi satu kartu. Isinya masuk lewat textContent, jadi selalu dibaca sebagai teks.
 function buatKartu(film) {
@@ -38,9 +39,15 @@ function buatKartu(film) {
   return li;
 }
 
+// Satu-satunya tempat yang menggambar daftar film.
 function render(daftar) {
-  wadah.textContent = ""; // kosongkan dulu, supaya kartu lama tidak bertumpuk
-  wadah.append(...daftar.map((film) => buatKartu(film)));
+  wadah.textContent = ""; // 1. kosongkan lebih dulu
+  if (daftar.length === 0) { // 2. periksa keadaan kosong
+    kosong.hidden = false;
+    return;
+  }
+  kosong.hidden = true;
+  wadah.append(...daftar.map((film) => buatKartu(film))); // 3. isi ulang
 }
 
 function tandaiTombolAktif(tombolAktif) {
@@ -61,8 +68,63 @@ barisFilter.addEventListener("click", (event) => {
   );
   tandaiTombolAktif(tombol);
   render(terpilih);
-  kosong.hidden = terpilih.length > 0;
   console.log(`Filter ${kategori}: ${terpilih.length} film`);
+});
+
+// Mengembalikan pesan galat satu kolom, atau "" bila isinya sudah layak.
+function cariGalat(kolom) {
+  const isi = kolom.value.trim();
+  if (kolom === inputJudul && isi === "") {
+    return "Tulis judul filmnya, misalnya Inception. Spasi saja tidak dihitung.";
+  }
+  if (kolom === inputTahun) {
+    const tahun = Number(isi);
+    if (isi === "" || !Number.isInteger(tahun) || tahun < 1888 || tahun > 2026) {
+      return "Isi tahun rilis dengan angka bulat 1888 sampai 2026, misalnya 2010.";
+    }
+  }
+  if (kolom === inputRating) {
+    const rating = Number(isi);
+    if (isi === "" || !(rating >= 1 && rating <= ratingMaksimal)) {
+      return `Isi rating dengan angka 1 sampai ${ratingMaksimal}, misalnya 4.5.`;
+    }
+  }
+  return "";
+}
+
+// Menulis pesan di bawah kolomnya dan menandai kolom itu; hasilnya true bila kolom sah.
+function periksaKolom(kolom) {
+  const pesan = cariGalat(kolom);
+  kolom.closest(".form-kolom").querySelector(".pesan-galat").textContent = pesan;
+  if (pesan === "") {
+    kolom.removeAttribute("aria-invalid");
+  } else {
+    kolom.setAttribute("aria-invalid", "true");
+  }
+  return pesan === "";
+}
+
+const daftarKolom = [inputJudul, inputTahun, inputRating];
+formFilm.noValidate = true; // pesan per kolom di bawah menggantikan gelembung bawaan peramban
+
+// Validasi berjalan saat mengetik; satu pendengar di form melayani ketiga kolom.
+formFilm.addEventListener("input", (event) => {
+  periksaKolom(event.target);
+  const sah = daftarKolom.every((kolom) => cariGalat(kolom) === "");
+  tombolSimpan.disabled = !sah;
+  pesanForm.textContent = "";
+});
+
+formFilm.addEventListener("submit", (event) => {
+  event.preventDefault(); // halaman tidak dimuat ulang
+  const kolomSalah = daftarKolom.filter((kolom) => !periksaKolom(kolom));
+  if (kolomSalah.length > 0) {
+    tombolSimpan.disabled = true;
+    kolomSalah[0].focus();
+    return;
+  }
+  pesanForm.textContent = `Siap dicatat: ${inputJudul.value.trim()} (${inputTahun.value}), rating ${inputRating.value}/${ratingMaksimal}.`;
+  formFilm.reset();
 });
 
 render(daftarFilm);

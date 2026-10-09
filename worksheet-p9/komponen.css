@@ -143,12 +143,17 @@ button {
   transition: background-color .15s, transform .15s;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background: color-mix(in srgb, var(--color-primary) 85%, var(--color-fg));
 }
 
-button:active {
+button:active:not(:disabled) {
   transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 :focus-visible {
@@ -156,7 +161,8 @@ button:active {
   outline-offset: 2px;
 }
 
-input:user-invalid {
+/* aria-invalid diisi dom.js; CSS hanya membaca tandanya. */
+input[aria-invalid="true"] {
   border-color: var(--color-danger);
   border-width: 2px;
 }
@@ -167,8 +173,18 @@ input:user-invalid {
   font-size: var(--text-sm);
 }
 
-.form-kolom:has(input:user-invalid) .pesan-galat {
+.form-kolom:has([aria-invalid="true"]) .pesan-galat {
   display: block;
+}
+
+.pesan-form {
+  grid-column: 1 / -1;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.pesan-form:not(:empty) {
+  margin-top: var(--space-3);
 }
 
 .daftar-target {
