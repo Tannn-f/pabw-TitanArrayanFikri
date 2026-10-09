@@ -87,3 +87,32 @@ Saya menggunakan AI pada bagian pembuatan form dan tabel data, sisanya saya tida
 
 ### Catatan Penggunaan AI (Pertemuan 8)
 - Kode `js/app.js`  array method
+
+## Pertemuan ke-9 - DOM, Event, dan Interaktivitas
+
+Folder `worksheet-p9/` (salinan hasil P8). Buka lewat server lokal:
+`python -m http.server` di folder itu, lalu `http://127.0.0.1:8000/profil.html`.
+
+- `js/dom.js` (baru) mengisi bagian **Jelajah per Genre**: kartu film dibuat
+  dari `daftarFilm` dengan `createElement` dan `textContent`, satu pendengar
+  `click` di `#filter` melayani lima tombol genre, dan ada pesan saat hasil
+  saringan kosong. Form Tambah Film divalidasi per kolom tanpa memuat ulang
+  halaman.
+- `js/app.js` hanya ditambah `export` pada `daftarFilm` dan `ratingMaksimal`.
+- Isi tabel lembar A–F: [`worksheet-p9/catatan-lembar.md`](worksheet-p9/catatan-lembar.md).
+  Tangkapan layar lembar E ada di `worksheet-p9/tangkapan-layar/`.
+
+### Catatan Penggunaan AI (Pertemuan 9)
+
+Dibantu AI (Claude Code):
+
+- Kode P9: bagian "Jelajah per Genre" dan perubahan form di `profil.html`,
+  seluruh `js/dom.js`, aturan CSS baru di `komponen.css`, dan dua `export` di
+  `js/app.js`.
+- Pemeriksaan di Chrome DevTools, pemicuan kasus lembar E, tiga tangkapan
+  layar, dan isi `worksheet-p9/catatan-lembar.md`.
+
+Dikerjakan sendiri:
+
+- Topik dan data halaman (daftar film, rating, target tontonan) dari Pertemuan
+  3–8, serta menyalin hasil P8 ke `worksheet-p9/`.

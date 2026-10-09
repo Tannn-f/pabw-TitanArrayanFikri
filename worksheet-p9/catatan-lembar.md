@@ -191,3 +191,32 @@ disandingkan.
 3. [`tangkapan-layar/03-filter-bekerja.png`](tangkapan-layar/03-filter-bekerja.png)
    — filter Animasi aktif: 2 kartu, `ul#daftar` di Elements berisi tepat dua
    `<li>`, Console `Filter Animasi: 2 film`.
+
+## Lembar F — Periksa satu per satu
+
+Tiket keluar, F.2 (satu baris untuk diingat), kolom "Nilai saya" di F.3, F.4,
+dan tanda tangan dijawab sendiri di lembar worksheet; tidak diisi di sini.
+
+### F.1 Periksa satu per satu
+
+| Yang diperiksa | Status | Bukti |
+| --- | --- | --- |
+| **Berkas** — `profil.html`, seluruh CSS, `js/app.js`, dan `js/dom.js` ada di repositori dan terbuka tanpa galat di Console | ✓ | `git ls-files worksheet-p9`; Console hanya berisi log P8 dan log filter, tanpa pesan merah dan tanpa *issue* |
+| **Pemilih** — setiap pemilih menghasilkan elemen | ✓ | Sembilan pemilih di `dom.js:3–11`: delapan diuji di A.3, `#pesan-form` ditambah dan dipakai di D; tidak ada yang `null` |
+| **Render dari data** — dari array dengan `createElement` dan `textContent` | ✓ | `buatKartu` di `dom.js:14–40`; `daftar.map(...)` + `append` di `dom.js:50` |
+| **Wadah** — dikosongkan di baris pertama `render` | ✓ | `dom.js:44` `wadah.textContent = ""` |
+| **Event delegation** — satu pendengar di induk; `event.target` dan `closest` dipakai benar | ✓ | `dom.js:61–72`; `tangkapan-layar/02-setelah-diperbaiki.png` menunjukkan satu `click` di `div#filter` |
+| **Keadaan kosong** — pesan muncul saat saringan tidak menghasilkan isi | ✓ | `dom.js:45–48`; tombol Horor → `#pesan-kosong` tampil |
+| **Validasi form** — tidak memuat ulang, pesan per kolom, tombol menunggu | ✓ | `dom.js:74–128`; hasil uji di D.3 |
+| **Deklarasi AI** — README menyebut bagian yang dibantu AI dan yang dikerjakan sendiri | ✓ | README, "Catatan Penggunaan AI (Pertemuan 9)" |
+| **Git** — lebih dari satu commit hari ini, pesannya menjelaskan isi | ✓ | Tujuh commit "P9 — …": salinan P8, lalu satu commit per lembar A–F |
+
+### F.3 Kolom Bukti
+
+| Bagian | Bobot | Bukti |
+| --- | --- | --- |
+| Pemilihan dan pengisian elemen | 20 | `js/dom.js:3–11` (pemilih), `js/dom.js:14–40` (`className`, `textContent`); tabel A.3 |
+| Render dari data | 25 | `js/dom.js:42–51` (`render` tiga langkah), `js/dom.js:130`; tabel B.3 |
+| Event dan event delegation | 25 | `js/dom.js:53–72` (`tandaiTombolAktif`, satu pendengar di `#filter`, `closest`, `dataset`); `komponen.css` `.filter-genre button.aktif`; tangkapan layar 02 dan 03 |
+| Validasi form | 20 | `js/dom.js:74–128`; `profil.html` (`#form-film`, `aria-describedby`, `#pesan-form`); `komponen.css` `input[aria-invalid="true"]`; tabel D.3 |
+| Kebersihan kode, deklarasi AI, dan bukti | 10 | README "Catatan Penggunaan AI (Pertemuan 9)"; `tangkapan-layar/01–03`; tabel E.4; commit "P9 — …" |
