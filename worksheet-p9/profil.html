@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catatan Film</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="tokens.css" />
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="layout.css" />
+    <link rel="stylesheet" href="komponen.css" />
+    <link rel="stylesheet" href="tema.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wadah hero-isi">
+        <h1 id="judul-halaman"></h1>
+        <p id="perkenalan" class="hero-intro"></p>
+        <p id="genre-favorit" class="hero-genre"></p>
+      </div>
+      <nav class="wadah" aria-label="Navigasi utama">
+        <ul>
+          <li><a href="#daftar-film">Daftar Film</a></li>
+          <li><a href="#tambah-film">Tambah Film</a></li>
+          <li><a href="#target-tontonan">Target Tontonan</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="wadah">
+      <section id="daftar-film">
+        <div class="kepala-bagian">
+          <h2>Daftar Film</h2>
+          <p id="ringkasan-film"></p>
+        </div>
+
+        <div class="daftar-film-isi">
+          <figure class="sorotan-film">
+            <img
+              src="poster-film.webp"
+              alt="Poster film Interstellar menampilkan seorang astronaut berdiri di lanskap planet es"
+              width="640"
+              height="360"
+              loading="lazy"
+            />
+            <figcaption id="keterangan-poster"></figcaption>
+          </figure>
+
+          <div class="table-wrap">
+            <table>
+              <caption>
+                Daftar Film yang Pernah Saya Tonton
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Judul Film</th>
+                  <th scope="col">Sutradara</th>
+                  <th scope="col">Tahun Rilis</th>
+                  <th scope="col">Rating Saya</th>
+                </tr>
+              </thead>
+              <tbody id="isi-tabel-film"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="tambah-film">
+        <div class="kepala-bagian">
+          <h2>Tambah Film</h2>
+          <p>Baru selesai menonton? Catat judul, tahun rilis, dan nilainya.</p>
+        </div>
+        <form class="kartu form-film" action="/simpan" method="post">
+          <div class="form-kolom form-lebar">
+            <label for="judul-film">Judul Film</label>
+            <input
+              type="text"
+              id="judul-film"
+              name="judul-film"
+              placeholder="Contoh: Inception"
+              required
+            />
+            <p class="pesan-galat">Judul film wajib diisi.</p>
+          </div>
+          <div class="form-kolom">
+            <label for="tahun-rilis">Tahun Rilis</label>
+            <input
+              type="number"
+              id="tahun-rilis"
+              name="tahun-rilis"
+              min="1888"
+              max="2026"
+              placeholder="2010"
+              required
+            />
+            <p class="pesan-galat">Isi tahun antara 1888 dan 2026.</p>
+          </div>
+          <div class="form-kolom">
+            <label for="rating-film">Rating Saya (1-5)</label>
+            <input
+              type="number"
+              id="rating-film"
+              name="rating-film"
+              min="1"
+              max="5"
+              step="0.1"
+              placeholder="4.5"
+              required
+            />
+            <p class="pesan-galat">Isi rating dari 1 sampai 5.</p>
+          </div>
+          <button type="submit">Simpan</button>
+        </form>
+      </section>
+
+      <section id="target-tontonan">
+        <div class="kepala-bagian">
+          <h2>Target Tontonan</h2>
+          <p>
+            Daftar film yang berencana saya tonton dalam waktu dekat beserta
+            prioritasnya:
+          </p>
+        </div>
+        <ul id="daftar-target" class="daftar-target"></ul>
+      </section>
+    </main>
+
+    <footer>
+      <p id="kaki-halaman" class="wadah"></p>
+    </footer>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
