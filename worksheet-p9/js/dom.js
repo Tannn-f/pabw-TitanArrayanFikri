@@ -43,4 +43,26 @@ function render(daftar) {
   wadah.append(...daftar.map((film) => buatKartu(film)));
 }
 
+function tandaiTombolAktif(tombolAktif) {
+  barisFilter.querySelectorAll("button").forEach((tombol) => {
+    tombol.classList.toggle("aktif", tombol === tombolAktif);
+    tombol.setAttribute("aria-pressed", tombol === tombolAktif);
+  });
+}
+
+// Satu pendengar di induk melayani kelima tombol filter.
+barisFilter.addEventListener("click", (event) => {
+  const tombol = event.target.closest("button");
+  if (!tombol) return; // klik di sela tombol, abaikan
+  const kategori = tombol.dataset.kategori;
+  // genre ditulis "Sci-Fi / Drama", jadi dipecah dulu lalu dicocokkan per genre
+  const terpilih = daftarFilm.filter(
+    (film) => kategori === "semua" || film.genre.split(" / ").includes(kategori)
+  );
+  tandaiTombolAktif(tombol);
+  render(terpilih);
+  kosong.hidden = terpilih.length > 0;
+  console.log(`Filter ${kategori}: ${terpilih.length} film`);
+});
+
 render(daftarFilm);

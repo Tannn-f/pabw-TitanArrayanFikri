@@ -236,6 +236,42 @@ input:user-invalid {
   }
 }
 
+.filter-genre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.filter-genre button {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-fg);
+  font-size: var(--text-sm);
+}
+
+.filter-genre button:hover {
+  background: var(--color-subtle);
+}
+
+/* Penanda tombol aktif. Tanpa outline, supaya garis fokus keyboard (:focus-visible) tetap terlihat. */
+.filter-genre button.aktif {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.pesan-kosong {
+  max-width: none;
+  padding: var(--space-6);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-muted);
+  text-align: center;
+}
+
 .daftar-koleksi {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));

@@ -81,3 +81,39 @@ halaman, bukan salinan.
 
 Cara memastikan: halaman dimuat ulang dua kali tanpa menyentuh Console →
 tetap 7 kartu, dan Console tidak menampilkan pesan merah.
+
+## Lembar C — Satu pendengar untuk semua tombol
+
+Pendengar `click` dipasang sekali di `#filter` (`barisFilter`).
+`event.target.closest("button")` mencari tombol dari elemen yang benar-benar
+diklik; bila hasilnya `null` (klik di sela tombol), fungsi langsung `return`.
+Nilai `tombol.dataset.kategori` dicocokkan dengan genre film:
+`film.genre.split(" / ").includes(kategori)` — `"Sci-Fi / Drama"` dipecah dulu
+menjadi `["Sci-Fi", "Drama"]`, jadi pencocokannya tetap huruf per huruf.
+
+Penanda aktif: `tandaiTombolAktif(tombol)` memakai
+`classList.toggle("aktif", tombol === tombolAktif)` dan sekaligus mengisi
+`aria-pressed`. Aturan `.aktif` di `komponen.css` mengganti latar dan warna
+tulisan; `outline` sengaja tidak dipakai supaya tidak menimpa garis fokus
+keyboard dari `:focus-visible`.
+
+### C.2 Tombol yang sedang aktif
+
+| Keadaan | Yang harus terjadi | Hasil yang saya dapat |
+| --- | --- | --- |
+| Halaman baru dibuka | Semua proyek tampil, tombol "semua" bertanda aktif | 7 kartu tampil; hanya tombol Semua yang berkelas `aktif` (dan `aria-pressed="true"`) |
+| Klik satu kategori | Hanya proyek kategori itu yang tampil | Sci-Fi → 2 (Interstellar, Dune: Part Two); Animasi → 2 (Spirited Away, Grave of the Fireflies); Drama → 4 (Interstellar, Laskar Pelangi, Oppenheimer, Grave of the Fireflies). Kelas `aktif` pindah ke tombol yang diklik |
+| Klik kategori kosong | Wadah kosong dan pesannya muncul, bukan halaman kosong | Horor → 0 kartu dan `#pesan-kosong` muncul: "Belum ada film dengan genre itu di catatan saya." Klik Semua → pesan hilang, 7 kartu kembali |
+| Klik dua kali cepat | Jumlah kartu tidak berlipat | Dua klik beruntun pada Sci-Fi → Console mencetak dua baris `Filter Sci-Fi: 2 film` (dua klik, dua render), kartu tetap 2 |
+
+Pemeriksaan tambahan:
+
+- Klik di bagian `#filter` yang bukan tombol → tidak ada yang berubah dan tidak
+  ada galat (`closest("button")` → `null`, lalu `return`).
+- Animasi → Drama → Sci-Fi bergantian: 2 → 4 → 2 kartu, Console tanpa pesan
+  merah.
+- Uji teks: lewat Console `daftarFilm[0].judul` diubah sementara menjadi
+  `"<b>Interstellar</b>"`, lalu tombol Semua diklik → kartu menampilkan
+  `<b>Interstellar</b>` apa adanya, `document.querySelectorAll("#daftar b").length`
+  → 0, dan `innerHTML` judulnya `&lt;b&gt;Interstellar&lt;/b&gt;`. Muat ulang
+  mengembalikan data asli.
