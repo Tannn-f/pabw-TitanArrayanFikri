@@ -159,3 +159,35 @@ Form Tambah Film (sejak P3) di `dom.js`:
 Pemeriksaan tambahan: judul diisi `<img src=x onerror="alert(1)">` lalu
 dikirim → pesan menampilkan tulisan itu apa adanya, `#pesan-form img` → 0
 elemen, tidak ada alert.
+
+## Lembar E — Membaca gejala, bukan menebaknya
+
+Kasus 1–4 sengaja dipicu untuk latihan lembar ini (satu baris diubah, gejala
+dicatat, lalu baris itu dikembalikan). Kasus 5 terjadi sungguhan saat lembar A.
+
+### E.4 Catat kasus yang saya temui
+
+| Gejala yang saya lihat | Sebabnya | Baris yang saya ubah |
+| --- | --- | --- |
+| **Pemilih `null`, halaman diam.** Daftar di "Jelajah per Genre" kosong, klik Sci-Fi dan Animasi tidak mengubah apa pun. Panel Event Listeners untuk `div#filter`: *No event listeners*. Console: `Uncaught TypeError: Cannot read properties of null (reading 'addEventListener') at dom.js:61:13`. Form juga tidak terlindungi: diisi benar lalu Simpan → halaman pindah ke `/simpan` dan server menjawab `501 Unsupported method ('POST')` | `document.querySelector(".filter")` — titik berarti kelas, padahal `filter` adalah id (kelasnya `filter-genre`), jadi hasilnya `null`. Galat dilaporkan di baris 61 (tempat `null` dipakai), sumbernya di baris 5. Skrip berhenti di baris 61, sehingga `render(daftarFilm)` di baris terakhir dan pendengar form tidak pernah dijalankan | `dom.js:5` `".filter"` → `"#filter"` |
+| **Pendengar ganda.** Daftar tetap benar dan tidak ada pesan merah, tetapi baris `Filter …` di Console bertambah: klik pertama 1 baris, klik kedua 2 baris, klik ketiga 4 baris. Jumlah pendengar `click` di `#filter` (Event Listeners / `getEventListeners`): 1 → 2 → 4 → 8 | Blok `barisFilter.addEventListener(...)` dipindah ke dalam `render`. Setiap `render` memasang satu pendengar baru, dan karena fungsinya arrow function yang dibuat ulang, peramban menganggapnya pendengar yang berbeda. `render` dipanggil dari dalam pendengar itu sendiri, jadi jumlahnya berlipat dua setiap klik | Blok pendengar dikembalikan ke luar `render` (`dom.js:60–72`), dipasang sekali |
+| **Isi daftar kosong.** Klik Sci-Fi → 0 kartu dan pesan "Belum ada film dengan genre itu di catatan saya.", padahal Interstellar dan Dune: Part Two bergenre Sci-Fi. Console tanpa galat; hanya log `Filter sci-fi: 0 film` | `data-kategori="sci-fi"` di `profil.html` (huruf kecil, ikut gaya `"semua"`), sedangkan di data tertulis `"Sci-Fi"`. `includes` membandingkan huruf per huruf, jadi tidak ada yang cocok. Pesan kosong membuat tampilan tetap rapi, tetapi justru menutupi salah ketiknya; yang membongkarnya log jumlah hasil di Console | `profil.html` tombol kedua: `data-kategori="Sci-Fi"` |
+| **`closest` menghasilkan `null`.** Klik di bagian `#filter` yang bukan tombol (sebelah kanan tombol Horor) → `Uncaught TypeError: Cannot read properties of null (reading 'dataset') at dom.js:64:27` | Yang diklik `div#filter` itu sendiri; `closest("button")` naik ke atas dan tidak menemukan tombol, jadi `null` | `dom.js:63` `if (!tombol) return;` dikembalikan |
+| **Semua pemilih baru `null`** (`#daftar`, `#filter`, `#pesan-kosong`, `#form-film`) dan `dom.js` tidak berjalan sama sekali, padahal `profil.html` sudah disimpan | Tab baru memakai `profil.html` versi lama dari cache peramban (`python -m http.server` tidak melarang cache), jadi elemen baru dan `<script src="js/dom.js">` belum ada di halaman | Tidak ada baris kode; cache dimatikan (DevTools → Network → *Disable cache*, atau Ctrl+Shift+R) lalu dimuat ulang |
+
+### Tangkapan layar
+
+Diambil dari Chrome dengan DevTools bawaan Chrome yang tersambung ke tab
+halaman; halaman (kiri) dan DevTools (kanan) dipotret pada saat yang sama lalu
+disandingkan.
+
+1. [`tangkapan-layar/01-halaman-diam.png`](tangkapan-layar/01-halaman-diam.png)
+   — kasus 1: daftar kosong, `div#filter` terpilih di Elements dan panel Event
+   Listeners-nya kosong, Console menunjukkan `TypeError` di `dom.js:61`.
+2. [`tangkapan-layar/02-setelah-diperbaiki.png`](tangkapan-layar/02-setelah-diperbaiki.png)
+   — pemilih `#filter` benar: 7 kartu, panel Event Listeners menunjukkan satu
+   `click` di `div#filter` (`dom.js:61`) walau tombol sudah diklik tiga kali;
+   Console mencetak satu baris per klik.
+3. [`tangkapan-layar/03-filter-bekerja.png`](tangkapan-layar/03-filter-bekerja.png)
+   — filter Animasi aktif: 2 kartu, `ul#daftar` di Elements berisi tepat dua
+   `<li>`, Console `Filter Animasi: 2 film`.
