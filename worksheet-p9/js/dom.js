@@ -10,7 +10,7 @@ const inputRating = document.querySelector("#rating-film");
 const tombolSimpan = document.querySelector("#form-film button[type='submit']");
 const pesanForm = document.querySelector("#pesan-form");
 
-// Satu film menjadi satu kartu. Isinya masuk lewat textContent, jadi selalu dibaca sebagai teks.
+
 function buatKartu(film) {
   const li = document.createElement("li");
   li.className = "kartu kartu-film";
@@ -39,15 +39,15 @@ function buatKartu(film) {
   return li;
 }
 
-// Satu-satunya tempat yang menggambar daftar film.
+
 function render(daftar) {
-  wadah.textContent = ""; // 1. kosongkan lebih dulu
-  if (daftar.length === 0) { // 2. periksa keadaan kosong
+  wadah.textContent = ""; 
+  if (daftar.length === 0) { 
     kosong.hidden = false;
     return;
   }
   kosong.hidden = true;
-  wadah.append(...daftar.map((film) => buatKartu(film))); // 3. isi ulang
+  wadah.append(...daftar.map((film) => buatKartu(film))); 
 }
 
 function tandaiTombolAktif(tombolAktif) {
@@ -57,7 +57,7 @@ function tandaiTombolAktif(tombolAktif) {
   });
 }
 
-// Satu pendengar di induk melayani kelima tombol filter.
+
 barisFilter.addEventListener("click", (event) => {
   const tombol = event.target.closest("button");
   if (!tombol) return; // klik di sela tombol, abaikan
@@ -71,7 +71,7 @@ barisFilter.addEventListener("click", (event) => {
   console.log(`Filter ${kategori}: ${terpilih.length} film`);
 });
 
-// Mengembalikan pesan galat satu kolom, atau "" bila isinya sudah layak.
+
 function cariGalat(kolom) {
   const isi = kolom.value.trim();
   if (kolom === inputJudul && isi === "") {
@@ -92,7 +92,7 @@ function cariGalat(kolom) {
   return "";
 }
 
-// Menulis pesan di bawah kolomnya dan menandai kolom itu; hasilnya true bila kolom sah.
+
 function periksaKolom(kolom) {
   const pesan = cariGalat(kolom);
   kolom.closest(".form-kolom").querySelector(".pesan-galat").textContent = pesan;
@@ -105,9 +105,8 @@ function periksaKolom(kolom) {
 }
 
 const daftarKolom = [inputJudul, inputTahun, inputRating];
-formFilm.noValidate = true; // pesan per kolom di bawah menggantikan gelembung bawaan peramban
+formFilm.noValidate = true; 
 
-// Validasi berjalan saat mengetik; satu pendengar di form melayani ketiga kolom.
 formFilm.addEventListener("input", (event) => {
   periksaKolom(event.target);
   const sah = daftarKolom.every((kolom) => cariGalat(kolom) === "");
