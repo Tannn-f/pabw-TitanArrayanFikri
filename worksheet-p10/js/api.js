@@ -9,6 +9,6 @@ export async function ambilFilm() {
     return data;
   } catch (galat) {
     console.error("gagal memuat", galat.message);
-    throw galat;
-    }
+    throw galat; 
+  }
 }
