@@ -1,3 +1,5 @@
+import { ambilFilm } from "./api.js";
+
 const judulHalaman = "Catatan Film Saya";
 export const ratingMaksimal = 5;
 
@@ -159,3 +161,40 @@ console.log(filmTidakAda?.sutradara ?? "Inception belum ada di daftar");
 
 console.log(judulFilm.length === daftarFilm.length);
 console.log(judulFilm);
+
+const elemenStatusApi = document.querySelector("#status-api");
+const elemenDaftarApi = document.querySelector("#daftar-api");
+
+function buatKartuApi(film) {
+  const li = document.createElement("li");
+  li.className = "kartu kartu-film";
+
+  const judul = document.createElement("h3");
+  judul.textContent = film.title;
+
+  const info = document.createElement("p");
+  info.className = "meta";
+  info.textContent = `${film.director} · ${film.release_date}`;
+
+  li.append(judul, info);
+  return li;
+}
+
+async function tampilkanFilmApi() {
+  elemenStatusApi.hidden = false;
+  elemenStatusApi.textContent = "Memuat daftar film…";
+  elemenDaftarApi.textContent = "";
+  try {
+    const data = await ambilFilm();
+    if (!Array.isArray(data) || data.length === 0) {
+      elemenStatusApi.textContent = "API membalas, tetapi belum ada film untuk ditampilkan.";
+      return;
+    }
+    elemenStatusApi.hidden = true;
+    elemenDaftarApi.append(...data.map((film) => buatKartuApi(film)));
+  } catch (galat) {
+    elemenStatusApi.textContent = `Daftar film gagal dimuat (${galat.message}). Periksa koneksi lalu muat ulang halaman.`;
+  }
+}
+
+tampilkanFilmApi();
