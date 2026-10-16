@@ -11,8 +11,17 @@ export function simpan(state) {
 }
 
 export function muat() {
-  try { return JSON.parse(localStorage.getItem(KUNCI)); }
-  catch { return null; }
+  try {
+    const isi = JSON.parse(localStorage.getItem(KUNCI));
+    if (isi?.versi !== VERSI) {
+      localStorage.removeItem(KUNCI);
+      return null;
+    }
+    return isi;
+  } catch {
+    localStorage.removeItem(KUNCI);
+    return null;
+  }
 }
 
 const tersimpan = muat();
