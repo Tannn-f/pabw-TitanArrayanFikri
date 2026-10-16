@@ -27,6 +27,7 @@ const elemenKaki = document.querySelector("#kaki-halaman");
 const wadah = document.querySelector("#daftar");
 const kosong = document.querySelector("#pesan-kosong");
 export const barisFilter = document.querySelector("#filter");
+export const tombolAturUlang = document.querySelector("#atur-ulang");
 export const formFilm = document.querySelector("#form-film");
 const inputJudul = document.querySelector("#judul-film");
 const inputTahun = document.querySelector("#tahun-rilis");

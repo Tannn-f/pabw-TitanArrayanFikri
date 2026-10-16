@@ -334,6 +334,10 @@ input[aria-invalid="true"] {
   font-size: var(--text-sm);
 }
 
+.tombol-atur-ulang {
+  margin-bottom: var(--space-6);
+}
+
 .galeri {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));

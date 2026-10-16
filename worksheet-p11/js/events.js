@@ -1,5 +1,5 @@
-import { state, pilihKategori } from "./state.js";
-import { barisFilter, formFilm, saring, perbaruiForm, kirimForm } from "./dom.js";
+import { state, pilihKategori, aturUlang } from "./state.js";
+import { barisFilter, tombolAturUlang, formFilm, saring, perbaruiForm, kirimForm } from "./dom.js";
 
 export function pasangPendengar() {
   barisFilter.addEventListener("click", (event) => {
@@ -7,6 +7,10 @@ export function pasangPendengar() {
     if (!tombol) return;
     pilihKategori(tombol.dataset.kategori);
     console.log(`Filter ${state.kategoriAktif}: ${saring(state).length} film`);
+  });
+
+  tombolAturUlang.addEventListener("click", () => {
+    aturUlang();
   });
 
   formFilm.addEventListener("input", (event) => {
