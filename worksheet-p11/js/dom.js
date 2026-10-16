@@ -1,14 +1,54 @@
-import { daftarFilm, ratingMaksimal } from "./app.js";
+import {
+  judulHalaman,
+  ratingMaksimal,
+  profil,
+  buatPerkenalan,
+  formatGenre,
+  formatRating,
+  buatBarisFilm,
+  buatItemTarget,
+  buatKeteranganPoster,
+  filmDitonton,
+  targetTontonan,
+  filmUrutRating,
+  filmPoster,
+  rataRating,
+} from "./data.js";
+
+const elemenJudul = document.querySelector("#judul-halaman");
+const elemenPerkenalan = document.querySelector("#perkenalan");
+const elemenGenre = document.querySelector("#genre-favorit");
+const elemenRingkasan = document.querySelector("#ringkasan-film");
+const elemenKeteranganPoster = document.querySelector("#keterangan-poster");
+const elemenIsiTabel = document.querySelector("#isi-tabel-film");
+const elemenDaftarTarget = document.querySelector("#daftar-target");
+const elemenKaki = document.querySelector("#kaki-halaman");
 
 const wadah = document.querySelector("#daftar");
 const kosong = document.querySelector("#pesan-kosong");
-const barisFilter = document.querySelector("#filter");
-const formFilm = document.querySelector("#form-film");
+export const barisFilter = document.querySelector("#filter");
+export const formFilm = document.querySelector("#form-film");
 const inputJudul = document.querySelector("#judul-film");
 const inputTahun = document.querySelector("#tahun-rilis");
 const inputRating = document.querySelector("#rating-film");
 const tombolSimpan = document.querySelector("#form-film button[type='submit']");
 const pesanForm = document.querySelector("#pesan-form");
+
+const elemenStatusApi = document.querySelector("#status-api");
+const elemenDaftarApi = document.querySelector("#daftar-api");
+
+
+export function isiHalaman() {
+  document.title = `${judulHalaman} — ${profil.nama}`;
+  elemenJudul.textContent = judulHalaman;
+  elemenPerkenalan.textContent = buatPerkenalan(profil, filmDitonton.length);
+  elemenGenre.textContent = `Genre favorit: ${formatGenre(profil.genreFavorit)}`;
+  elemenRingkasan.textContent = `Rata-rata rating saya ${formatRating(rataRating.toFixed(1), ratingMaksimal)}. Tabel diurutkan dari rating tertinggi.`;
+  elemenKeteranganPoster.textContent = buatKeteranganPoster(filmPoster, ratingMaksimal);
+  elemenIsiTabel.innerHTML = filmUrutRating.map((film) => buatBarisFilm(film, ratingMaksimal)).join("");
+  elemenDaftarTarget.innerHTML = targetTontonan.map((film) => buatItemTarget(film)).join("");
+  elemenKaki.textContent = `${profil.nama}, ${profil.nim}, ${new Date().getFullYear()}`;
+}
 
 
 function buatKartu(film) {
@@ -40,17 +80,17 @@ function buatKartu(film) {
 }
 
 
-function render(daftar) {
-  wadah.textContent = ""; 
-  if (daftar.length === 0) { 
+export function render(daftar) {
+  wadah.textContent = "";
+  if (daftar.length === 0) {
     kosong.hidden = false;
     return;
   }
   kosong.hidden = true;
-  wadah.append(...daftar.map((film) => buatKartu(film))); 
+  wadah.append(...daftar.map((film) => buatKartu(film)));
 }
 
-function tandaiTombolAktif(tombolAktif) {
+export function tandaiTombolAktif(tombolAktif) {
   barisFilter.querySelectorAll("button").forEach((tombol) => {
     tombol.classList.toggle("aktif", tombol === tombolAktif);
     tombol.setAttribute("aria-pressed", tombol === tombolAktif);
@@ -58,18 +98,39 @@ function tandaiTombolAktif(tombolAktif) {
 }
 
 
-barisFilter.addEventListener("click", (event) => {
-  const tombol = event.target.closest("button");
-  if (!tombol) return; // klik di sela tombol, abaikan
-  const kategori = tombol.dataset.kategori;
-  // genre ditulis "Sci-Fi / Drama", jadi dipecah dulu lalu dicocokkan per genre
-  const terpilih = daftarFilm.filter(
-    (film) => kategori === "semua" || film.genre.split(" / ").includes(kategori)
-  );
-  tandaiTombolAktif(tombol);
-  render(terpilih);
-  console.log(`Filter ${kategori}: ${terpilih.length} film`);
-});
+function buatKartuApi(film) {
+  const li = document.createElement("li");
+  li.className = "kartu kartu-film";
+
+  const judul = document.createElement("h3");
+  judul.textContent = film.title;
+
+  const info = document.createElement("p");
+  info.className = "meta";
+  info.textContent = `${film.director} · ${film.release_date}`;
+
+  li.append(judul, info);
+  return li;
+}
+
+export function renderFilmApi(state) {
+  elemenDaftarApi.textContent = "";
+  elemenStatusApi.hidden = false;
+  if (state.galatApi !== "") {
+    elemenStatusApi.textContent = `Daftar film gagal dimuat (${state.galatApi}). Periksa koneksi lalu muat ulang halaman.`;
+    return;
+  }
+  if (state.filmApi === null) {
+    elemenStatusApi.textContent = "Memuat daftar film…";
+    return;
+  }
+  if (!Array.isArray(state.filmApi) || state.filmApi.length === 0) {
+    elemenStatusApi.textContent = "API membalas, tetapi belum ada film untuk ditampilkan.";
+    return;
+  }
+  elemenStatusApi.hidden = true;
+  elemenDaftarApi.append(...state.filmApi.map((film) => buatKartuApi(film)));
+}
 
 
 function cariGalat(kolom) {
@@ -105,17 +166,16 @@ function periksaKolom(kolom) {
 }
 
 const daftarKolom = [inputJudul, inputTahun, inputRating];
-formFilm.noValidate = true; 
+formFilm.noValidate = true;
 
-formFilm.addEventListener("input", (event) => {
-  periksaKolom(event.target);
+export function perbaruiForm(kolom) {
+  periksaKolom(kolom);
   const sah = daftarKolom.every((kolom) => cariGalat(kolom) === "");
   tombolSimpan.disabled = !sah;
   pesanForm.textContent = "";
-});
+}
 
-formFilm.addEventListener("submit", (event) => {
-  event.preventDefault(); // halaman tidak dimuat ulang
+export function kirimForm() {
   const kolomSalah = daftarKolom.filter((kolom) => !periksaKolom(kolom));
   if (kolomSalah.length > 0) {
     tombolSimpan.disabled = true;
@@ -124,6 +184,4 @@ formFilm.addEventListener("submit", (event) => {
   }
   pesanForm.textContent = `Siap dicatat: ${inputJudul.value.trim()} (${inputTahun.value}), rating ${inputRating.value}/${ratingMaksimal}.`;
   formFilm.reset();
-});
-
-render(daftarFilm);
+}
