@@ -97,3 +97,7 @@ Pada bagian js/dom.js saya menggunakan Ai pada bagian form dan galat
 ### Catatan Penggunaan AI (Pertemuan 10)
 Pemilihan API. AI mengusulkan Studio Ghibli API karena cocok dengan tema film, memakai https, dan tidak butuh kunci akses.
 js/api.js,  fungsi ambilFilm() dengan async/await, 
+
+### Catatan Penggunaan AI (Pertemuan 11)
+AI membantu memecah kode menjadi data.js, state.js, events.js
+mengubah render menjadi render(state)
