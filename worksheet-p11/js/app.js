@@ -9,9 +9,9 @@ import {
   judulFilm,
   filmTidakAda,
 } from "./data.js";
-import { state } from "./state.js";
+import { state, simpanFilmApi, catatGalatApi } from "./state.js";
 import { pasangPendengar } from "./events.js";
-import { isiHalaman, render, renderFilmApi } from "./dom.js";
+import { isiHalaman, render, tandaiTombolAktif, renderFilmApi } from "./dom.js";
 import { ambilFilm } from "./api.js";
 
 isiHalaman();
@@ -32,13 +32,12 @@ console.log(judulFilm.length === daftarFilm.length);
 console.log(judulFilm);
 
 pasangPendengar();
-render(state.daftarFilm);
+tandaiTombolAktif(state);
+render(state);
 
-renderFilmApi(state);                     // "Memuat daftar film…"
+renderFilmApi(state);
 try {
-  const dataApi = await ambilFilm();      // ambil
-  state.filmApi = dataApi;                // masuk ke state
+  simpanFilmApi(await ambilFilm());
 } catch (galat) {
-  state.galatApi = galat.message;
+  catatGalatApi(galat.message);
 }
-renderFilmApi(state);                     // baru digambar

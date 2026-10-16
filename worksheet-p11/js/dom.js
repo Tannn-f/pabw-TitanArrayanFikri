@@ -80,20 +80,28 @@ function buatKartu(film) {
 }
 
 
-export function render(daftar) {
+export function saring(state) {
+  return state.daftarFilm.filter(
+    (film) => state.kategoriAktif === "semua" || film.genre.split(" / ").includes(state.kategoriAktif)
+  );
+}
+
+export function render(state) {
   wadah.textContent = "";
-  if (daftar.length === 0) {
+  const tampil = saring(state);
+  if (tampil.length === 0) {
     kosong.hidden = false;
     return;
   }
   kosong.hidden = true;
-  wadah.append(...daftar.map((film) => buatKartu(film)));
+  tampil.forEach((film) => wadah.append(buatKartu(film)));
 }
 
-export function tandaiTombolAktif(tombolAktif) {
+export function tandaiTombolAktif(state) {
   barisFilter.querySelectorAll("button").forEach((tombol) => {
-    tombol.classList.toggle("aktif", tombol === tombolAktif);
-    tombol.setAttribute("aria-pressed", tombol === tombolAktif);
+    const aktif = tombol.dataset.kategori === state.kategoriAktif;
+    tombol.classList.toggle("aktif", aktif);
+    tombol.setAttribute("aria-pressed", aktif);
   });
 }
 
