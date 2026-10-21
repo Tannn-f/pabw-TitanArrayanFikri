@@ -10,6 +10,7 @@ export const profil = {
 
 export const daftarFilm = [
   {
+    id: 1,
     judul: "Interstellar",
     sutradara: "Christopher Nolan",
     tahun: 2014,
@@ -19,6 +20,7 @@ export const daftarFilm = [
     prioritas: null,
   },
   {
+    id: 2,
     judul: "Laskar Pelangi",
     sutradara: "Riri Riza",
     tahun: 2008,
@@ -28,6 +30,7 @@ export const daftarFilm = [
     prioritas: null,
   },
   {
+    id: 3,
     judul: "Spirited Away",
     sutradara: "Hayao Miyazaki",
     tahun: 2001,
@@ -37,6 +40,7 @@ export const daftarFilm = [
     prioritas: null,
   },
   {
+    id: 4,
     judul: "Oppenheimer",
     sutradara: "Christopher Nolan",
     tahun: 2023,
@@ -46,6 +50,7 @@ export const daftarFilm = [
     prioritas: "Tinggi",
   },
   {
+    id: 5,
     judul: "Dune: Part Two",
     sutradara: "Denis Villeneuve",
     tahun: 2024,
@@ -55,6 +60,7 @@ export const daftarFilm = [
     prioritas: "Tinggi",
   },
   {
+    id: 6,
     judul: "The Dark Knight",
     sutradara: "Christopher Nolan",
     tahun: 2008,
@@ -64,6 +70,7 @@ export const daftarFilm = [
     prioritas: "Sedang",
   },
   {
+    id: 7,
     judul: "Grave of the Fireflies",
     sutradara: "Isao Takahata",
     tahun: 1988,
