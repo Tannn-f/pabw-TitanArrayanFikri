@@ -101,3 +101,7 @@ js/api.js,  fungsi ambilFilm() dengan async/await,
 ### Catatan Penggunaan AI (Pertemuan 11)
 AI membantu memecah kode menjadi data.js, state.js, events.js
 mengubah render menjadi render(state)
+
+### Pertemuan 12
+node -v	v24.22.1
+npm -v	12.2.0
