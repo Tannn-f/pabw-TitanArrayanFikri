@@ -4,6 +4,8 @@ import { daftarFilm } from './data.js'
 export const state = reactive({
   daftarFilm: daftarFilm,
   kategoriAktif: 'semua',
+  filmApi: null,
+  galatApi: '',
 })
 
 export function pilihKategori(nilai) {

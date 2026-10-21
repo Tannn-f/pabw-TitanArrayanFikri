@@ -1,10 +1,11 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import KepalaProfil from './components/KepalaProfil.vue'
 import TombolFilter from './components/TombolFilter.vue'
 import DaftarProyek from './components/DaftarProyek.vue'
 import FormKontak from './components/FormKontak.vue'
-import { pilihKategori } from './state.js'
+import { state } from './state.js'
+import { muat, simpan, aturUlang } from './simpanan.js'
 import { ambilFilm } from './api.js'
 import {
   judulHalaman,
@@ -20,31 +21,42 @@ import {
 
 const identitas = profil
 const tahunIni = new Date().getFullYear()
-const filmApi = ref(null)
-const galatApi = ref('')
 
 document.title = `${judulHalaman} — ${profil.nama}`
 
 const statusApi = computed(() => {
-  if (galatApi.value !== '') {
-    return `Daftar film gagal dimuat (${galatApi.value}). Periksa koneksi lalu muat ulang halaman.`
+  if (state.galatApi !== '') {
+    return `Daftar film gagal dimuat (${state.galatApi}). Periksa koneksi lalu muat ulang halaman.`
   }
-  if (filmApi.value === null) {
+  if (state.filmApi === null) {
     return 'Memuat daftar film…'
   }
-  if (!Array.isArray(filmApi.value) || filmApi.value.length === 0) {
+  if (!Array.isArray(state.filmApi) || state.filmApi.length === 0) {
     return 'API membalas, tetapi belum ada film untuk ditampilkan.'
   }
   return ''
 })
 
-const daftarApi = computed(() => (statusApi.value === '' ? filmApi.value : []))
+const daftarApi = computed(() => (statusApi.value === '' ? state.filmApi : []))
+
+onMounted(() => {
+  const isi = muat()
+  if (isi) state.kategoriAktif = isi.kategoriAktif
+})
+
+watch(state, (nilai) => simpan(nilai), { deep: true })
+
+function aturUlangPilihan() {
+  aturUlang()
+  state.kategoriAktif = 'semua'
+  simpan(state)
+}
 
 onMounted(async () => {
   try {
-    filmApi.value = await ambilFilm()
+    state.filmApi = await ambilFilm()
   } catch (galat) {
-    galatApi.value = galat.message
+    state.galatApi = galat.message
   }
 })
 </script>
@@ -114,7 +126,7 @@ onMounted(async () => {
         </p>
       </div>
       <TombolFilter />
-      <button type="button" class="tombol-tema tombol-atur-ulang" @click="pilihKategori('semua')">
+      <button type="button" class="tombol-tema tombol-atur-ulang" @click="aturUlangPilihan">
         Atur ulang pilihan
       </button>
       <DaftarProyek />
