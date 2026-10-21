@@ -105,3 +105,4 @@ mengubah render menjadi render(state)
 ### Pertemuan 12
 node -v	v24.22.1
 npm -v	12.2.0
+Penggunaan AI saya gunakan untuk state.js dengan reactive(), simpanan. dan susunan app.vue
